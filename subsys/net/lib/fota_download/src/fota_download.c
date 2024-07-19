@@ -23,6 +23,8 @@
 #include <dfu/dfu_target_mcuboot.h>
 #endif
 
+#include <dfu/dfu_target_certs.h>
+
 LOG_MODULE_REGISTER(fota_download, CONFIG_FOTA_DOWNLOAD_LOG_LEVEL);
 
 static fota_download_callback_t callback;
@@ -37,6 +39,9 @@ static struct k_work_delayable  dlc_with_offset_work;
 static int socket_retries_left;
 #ifdef CONFIG_DFU_TARGET_MCUBOOT
 static uint8_t mcuboot_buf[CONFIG_FOTA_DOWNLOAD_MCUBOOT_FLASH_BUF_SZ] __aligned(4);
+#endif
+#ifdef CONFIG_DFU_TARGET_CERTS
+static uint8_t certs_buf[512] __aligned(4);	//TODO: make sure it is correct and use CONFIG_
 #endif
 static enum dfu_target_image_type img_type;
 static enum dfu_target_image_type img_type_expected = DFU_TARGET_IMAGE_TYPE_ANY;
@@ -598,13 +603,22 @@ int fota_download_init(fota_download_callback_t client_callback)
 
 	callback = client_callback;
 
-#ifdef CONFIG_DFU_TARGET_MCUBOOT
+#if defined(CONFIG_DFU_TARGET_MCUBOOT) || defined(CONFIG_DFU_TARGET_CERTS)
 	int err;
-
+#endif
+#ifdef CONFIG_DFU_TARGET_MCUBOOT
 	/* Set the required buffer for MCUboot targets */
 	err = dfu_target_mcuboot_set_buf(mcuboot_buf, sizeof(mcuboot_buf));
 	if (err) {
 		LOG_ERR("%s failed to set MCUboot flash buffer %d", __func__, err);
+		return err;
+	}
+#endif
+#ifdef CONFIG_DFU_TARGET_CERTS
+	/* Set the required buffer for AWS credentials target */
+	err = dfu_target_certs_set_buf(certs_buf, sizeof(certs_buf));
+	if (err) {
+		LOG_ERR("%s failed to set certs flash buffer %d", __func__, err);
 		return err;
 	}
 #endif
