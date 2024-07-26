@@ -410,6 +410,7 @@ static int broker_init(struct sockaddr_storage *broker,
 	addr = result;
 
 	while (addr != NULL) {
+#if defined(CONFIG_NET_IPV6)
 		if (addr->ai_family == AF_INET6) {
 			struct sockaddr_in6 *broker6 = ((struct sockaddr_in6 *)broker);
 
@@ -423,7 +424,9 @@ static int broker_init(struct sockaddr_storage *broker,
 			LOG_DBG("IPv6 Address found %s (%s)", addr_str,
 				net_family2str(addr->ai_family));
 			break;
-		} else if (addr->ai_family == AF_INET) {
+		} else 
+#endif 
+		if (addr->ai_family == AF_INET) {
 			struct sockaddr_in *broker4 = ((struct sockaddr_in *)broker);
 
 			net_ipaddr_copy(&broker4->sin_addr,
