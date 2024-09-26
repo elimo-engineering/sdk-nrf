@@ -57,19 +57,19 @@ Currently, the following configurations are supported:
 * nRF7002 EK + SPIM
 
 
-To build for the nRF7002 DK, use the ``nrf7002dk_nrf5340_cpuapp`` build target.
+To build for the nRF7002 DK, use the ``nrf7002dk/nrf5340/cpuapp`` board target.
 The following is an example of the CLI command:
 
 .. code-block:: console
 
-   west build -b nrf7002dk_nrf5340_cpuapp
+   west build -b nrf7002dk/nrf5340/cpuapp
 
-To build for the nRF7002 EK and nRF5340 DK, use the ``nrf5340dk_nrf5340_cpuapp`` build target with the ``SHIELD`` CMake option set to ``nrf7002ek``.
+To build for the nRF7002 EK and nRF5340 DK, use the ``nrf5340dk/nrf5340/cpuapp`` board target with the ``SHIELD`` CMake option set to ``nrf7002ek``.
 The following is an example of the CLI command:
 
 .. code-block:: console
 
-   west build -b nrf5340dk_nrf5340_cpuapp -- -DSHIELD=nrf7002ek
+   west build -b nrf5340dk/nrf5340/cpuapp -- -DSHIELD=nrf7002ek
 
 See also :ref:`cmake_options` for instructions on how to provide CMake options.
 
@@ -169,7 +169,7 @@ Testing
          .. note::
 
             Edge backoff and antenna gain are configured in the Kconfig file.
-            To overwrite these backoffs with user-specified backoffs, use the``set_edge_bo`` and ``set_ant_gain`` commands.
+            To overwrite these backoffs with user-specified backoffs, use the ``set_edge_bo`` and ``set_ant_gain`` commands.
             These backoffs are applied only when the ``bypass_reg_domain`` is set to ``0``.
 
 

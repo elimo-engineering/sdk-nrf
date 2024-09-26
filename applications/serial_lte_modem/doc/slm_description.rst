@@ -117,7 +117,7 @@ CONFIG_SLM_POWER_PIN - Interface GPIO pin to power off the SiP and exit from sle
      * **P0.6** (Button 1 on the nRF9160 DK) is used when UART_0 is used.
      * **P0.31** is used when UART_1 is used.
 
-   * On Thingy:91, **P0.26** (Multi-function button on Thingy:91) is used.
+   * On Thingy:91 and Thingy:91 X, **P0.26** (Multi-function button) is used.
 
    .. note::
       This pin is configured with a pull up, so it is active low.
@@ -139,7 +139,7 @@ CONFIG_SLM_INDICATE_PIN - Interface GPIO pin to indicate data available or unsol
      * **P0.2** (LED 1 on the nRF9160 DK) is used when UART_0 is selected.
      * **P0.30** is used when UART_2 is selected.
 
-   * It is not defined when the target is Thingy:91.
+   * It is not defined when the targets are Thingy:91 and Thingy:91 X.
 
    .. note::
       This pin is configured to be active low, so it will be high when inactive.
@@ -288,7 +288,7 @@ You can find the configuration files in the :file:`applications/serial_lte_modem
 
 In general, they have an ``overlay-`` prefix, and a :file:`.conf` or :file:`.overlay` extension for Kconfig or devicetree overlays, respectively.
 Board-specific configuration files are named :file:`<BOARD>` with a :file:`.conf` or :file:`.overlay` extension and are located in the :file:`boards` directory.
-When the name of the board-specific configuration file matches the build target, the overlay is automatically included by the build system.
+When the name of the board-specific configuration file matches the board target, the overlay is automatically included by the build system.
 
 See :ref:`app_build_system`: for more information on the |NCS| configuration system.
 
@@ -318,22 +318,28 @@ The following configuration files are provided:
   This disables most of the IP-based protocols available through AT commands (such as FTP and MQTT) as it is expected that the controlling chip's own IP stack is used instead.
   See :ref:`CONFIG_SLM_PPP <CONFIG_SLM_PPP>` and :ref:`SLM_AT_PPP` for more information.
 
-* :file:`overlay-ppp-without-cmux.overlay` - Devicetree overlay file that configures the UART to be used by PPP.
+* :file:`overlay-ppp-without-cmux.conf` - Kconfig fragment that configures the UART to be used by PPP.
+  This configuration file should be included when building SLM with PPP and without CMUX.
+
+* :file:`overlay-ppp-without-cmux.overlay` - Devicetree overlay that configures the UART to be used by PPP.
   This configuration file should be included when building SLM with PPP and without CMUX, in addition to :file:`overlay-ppp.conf`.
   It can be customized to fit your configuration (UART, baud rate, and so on).
   By default, it sets the baud rate of the PPP UART to 1 000 000.
 
 * :file:`overlay-zephyr-modem.conf`, :file:`overlay-zephyr-modem-external-mcu.conf`, :file:`overlay-zephyr-modem-nrf9160dk-nrf52840.conf`, :file:`overlay-external-mcu.overlay`,  and :file:`overlay-zephyr-modem-nrf9160dk-nrf52840.overlay` - These configuration files are used when compiling SLM to turn an nRF91 Series SiP into a Zephyr-compatible standalone modem.
-   See :ref:`slm_as_zephyr_modem` for more information.
+  See :ref:`slm_as_zephyr_modem` for more information.
 
 * :file:`boards/nrf9160dk_nrf9160_ns.conf` - Configuration file specific for the nRF9160 DK.
-  This file is automatically merged with the :file:`prj.conf` file when you build for the ``nrf9160dk_nrf9160_ns`` build target.
+  This file is automatically merged with the :file:`prj.conf` file when you build for the ``nrf9160dk/nrf9160/ns`` board target.
 
 * :file:`boards/nrf9161dk_nrf9161_ns.conf` - Configuration file specific for the nRF9161 DK.
-  This file is automatically merged with the :file:`prj.conf` file when you build for the ``nrf9161dk_nrf9161_ns`` build target.
+  This file is automatically merged with the :file:`prj.conf` file when you build for the ``nrf9161dk/nrf9161/ns`` board target.
 
 * :file:`boards/thingy91_nrf9160_ns.conf` - Configuration file specific for Thingy:91.
-  This file is automatically merged with the :file:`prj.conf` file when you build for the ``thingy91_nrf9160_ns`` build target.
+  This file is automatically merged with the :file:`prj.conf` file when you build for the ``thingy91/nrf9160/ns`` board target.
+
+* :file:`boards/thingy91x_nrf9151_ns.conf` - Configuration file specific for Thingy:91 X.
+  This file is automatically merged with the :file:`prj.conf` file when you build for the ``thingy91x/nrf9151/ns`` board target.
 
 .. _slm_native_tls:
 
@@ -399,23 +405,14 @@ To connect to an nRF91 Series DK with a PC:
    Using the Cellular Monitor app in combination with the nRF Connect Serial Terminal shows how the modem responds to the different modem commands.
    You can then use this connection to send or receive AT commands over UART, and to see the log output of the development kit.
 
-   Alternatively, you can use a terminal emulator like `Termite`_, `Teraterm`_, or PuTTY to establish a terminal connection to the development kit, using the :ref:`default serial port connection settings <test_and_optimize>`.
+   Instead of using nRF Connect Serial Terminal, you can use PuTTY to establish a terminal connection to the development kit, using the :ref:`default serial port connection settings <test_and_optimize>`.
 
    .. note::
 
       The default AT command terminator is a carriage return followed by a line feed (``\r\n``).
       nRF Connect Serial Terminal supports this format.
       If you want to use another terminal emulator, make sure that the configured AT command terminator corresponds to the line terminator of your terminal.
-
-      When using `Termite`_ and `Teraterm`_, configure the AT command terminator as follows:
-
-      .. figure:: images/termite.svg
-         :alt: Termite configuration for sending AT commands through UART
-
-      .. figure:: images/teraterm.svg
-         :alt: Teraterm configuration for sending AT commands through UART
-
-      When using PuTTY, you must set the :ref:`CONFIG_SLM_CR_TERMINATION <CONFIG_SLM_CR_TERMINATION>` SLM configuration option instead.
+      When using PuTTY, you must set the :ref:`CONFIG_SLM_CR_TERMINATION <CONFIG_SLM_CR_TERMINATION>` SLM configuration option.
       See :ref:`slm_config_options` for more details.
 
 .. slm_connecting_91dk_pc_instr_end
@@ -427,7 +424,7 @@ Connecting with an external MCU
 
 .. note::
 
-   This section does not apply to Thingy:91 as it does not have UART2.
+   This section does not apply to Thingy:91 or Thingy:91 X.
 
 If you run your user application on an external MCU (for example, an nRF52 Series development kit), you can control the modem on an nRF91 Series device directly from the application.
 See the :ref:`slm_shell_sample` for a sample implementation of such an application.

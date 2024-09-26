@@ -13,13 +13,18 @@ This page is included only in the latest documentation, because it might contain
    When looking at this latest documentation, be aware of the following aspect:
 
    * The release note pages that are available in the latest documentation might differ slightly from the release notes that were included in the respective |NCS| release at its release date.
-     Therefore, to see the official version of the release notes for a specific |NCS| release, switch to the documentation for the corresponding |NCS| version using the selector in the upper right-hand corner.
+     Therefore, to see the official version of the release notes for a specific |NCS| release, switch to the documentation for the corresponding |NCS| version using the selector in the upper left corner.
 
 .. toctree::
    :maxdepth: 1
    :caption: Subpages:
 
+   releases/release-notes-2.7.0
+   releases/release-notes-2.6.99-cs2
+   releases/release-notes-2.6.99-cs1
+   releases/release-notes-2.6.1
    releases/release-notes-2.6.0
+   releases/release-notes-2.5.3
    releases/release-notes-2.5.2
    releases/release-notes-2.5.1
    releases/release-notes-2.5.0

@@ -29,3 +29,9 @@ zephyr_library_sources_ifdef(CONFIG_DFU_TARGET_SMP
 zephyr_library_sources_ifdef(CONFIG_DFU_TARGET_CERTS
   src/dfu_target_certs.c
   )
+if (CONFIG_DFU_TARGET_SUIT)
+  zephyr_library_sources(src/dfu_target_suit.c)
+  if (CONFIG_SSF_SUIT_SERVICE_ENABLED)
+    zephyr_library_link_libraries(suit_utils)
+  endif()
+endif()

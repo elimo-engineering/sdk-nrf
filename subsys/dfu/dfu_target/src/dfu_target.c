@@ -38,6 +38,10 @@ DEF_DFU_TARGET(smp);
 #include "dfu/dfu_target_certs.h"
 DEF_DFU_TARGET(certs);
 #endif
+#ifdef CONFIG_DFU_TARGET_SUIT
+#include "dfu/dfu_target_suit.h"
+DEF_DFU_TARGET(suit);
+#endif
 
 #define MIN_SIZE_IDENTIFY_BUF 32
 
@@ -116,6 +120,10 @@ int dfu_target_init(int img_type, int img_num, size_t file_size, dfu_target_call
 #ifdef CONFIG_DFU_TARGET_CERTS
 	if (img_type == DFU_TARGET_IMAGE_TYPE_CERTS) {
 		new_target = &dfu_target_certs;
+#endif
+#ifdef CONFIG_DFU_TARGET_SUIT
+	if (img_type == DFU_TARGET_IMAGE_TYPE_SUIT) {
+		new_target = &dfu_target_suit;
 	}
 #endif
 

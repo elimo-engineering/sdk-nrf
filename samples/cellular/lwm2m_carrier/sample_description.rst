@@ -86,7 +86,7 @@ Server options
 
 .. _CONFIG_CARRIER_APP_PSK:
 
-CONFIG_CARRIER_APP_PSK - Configuration for Pre-Shared Key
+CONFIG_CARRIER_APP_PSK - Configuration for a pre-shared key (PSK)
    The sample configuration is used to set the hexadecimal representation of the PSK used when registering the device with the server.
    The PSK is stored in the security tag specified in :kconfig:option:`CONFIG_LWM2M_CARRIER_SERVER_SEC_TAG`.
 
@@ -120,14 +120,14 @@ Building and running
 Building with overlay
 =====================
 
-To build with a Kconfig overlay, pass it to the build system using the ``OVERLAY_CONFIG`` CMake variable, as shown in the following example:
+To build with a Kconfig overlay, pass it to the build system using the ``EXTRA_CONF_FILE`` CMake variable, as shown in the following example:
 
 .. parsed-literal::
    :class: highlight
 
-   west build -b *build_target* -- -DOVERLAY_CONFIG=overlay-shell.conf
+   west build -b *board_target* -- -DEXTRA_CONF_FILE=overlay-shell.conf
 
-|build_target|
+|board_target|
 
 This command builds for your nRF91 Series DK using the configurations found in the :file:`overlay-shell.conf` file, in addition to the configurations found in the :file:`prj.conf` file.
 If some options are defined in both files, the options set in the overlay take precedence.
@@ -138,7 +138,9 @@ Testing
 After programming the sample and all prerequisites to the development kit, test it by performing the following steps:
 
 1. Connect the USB cable and power on or reset your nRF91 Series DK.
-#. Open a terminal emulator and observe that the kit prints the following information::
+#. Use a terminal emulator, like `nRF Connect Serial Terminal`_, to connect to the serial port.
+   See :ref:`test_and_optimize` for the required settings and steps.
+#. Observe that the kit prints the following information::
 
         LWM2M Carrier library sample.
 #. Observe that the application receives events from the :ref:`liblwm2m_carrier_readme` library using the registered event handler. If the client and server configuration is correct, the initial output looks similar to the following output:

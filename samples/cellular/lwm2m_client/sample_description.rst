@@ -164,7 +164,7 @@ You need to provide the following information to the LwM2M Server before you can
 
 * Client endpoint
 * Identity
-* `Pre-Shared Key (PSK)`_
+* `Pre-shared key (PSK) <Pre-Shared Key (PSK)_>`_
 
 See :ref:`server setup <server_setup_lwm2m_client>` for instructions on providing the information to the server.
 
@@ -312,7 +312,7 @@ Server options
 
 .. _CONFIG_APP_LWM2M_PSK:
 
-CONFIG_APP_LWM2M_PSK - Configuration for Pre-Shared Key
+CONFIG_APP_LWM2M_PSK - Configuration for the PSK
    The sample configuration sets the hexadecimal representation of the PSK used when registering the device with the server.
    To prevent provisioning of the key to the modem, set this option to an empty string.
 
@@ -637,9 +637,9 @@ For example:
 .. parsed-literal::
    :class: highlight
 
-   west build -b *build_target* -- -DEXTRA_CONF_FILE=overlay-leshan-bootstrap.conf
+   west build -b *board_target* -- -DEXTRA_CONF_FILE=overlay-leshan-bootstrap.conf
 
-|build_target|
+|board_target|
 
 In bootstrap mode, application does not overwrite the PSK key from the modem so :ref:`CONFIG_APP_LWM2M_PSK <CONFIG_APP_LWM2M_PSK>` is not used.
 Please refer to :ref:`lwm2m_client_provisioning` for instructions how to provision bootstrap keys.
@@ -658,7 +658,7 @@ Use one of the following build commands to evaluate external FOTA:
 
          .. code-block:: console
 
-            west build  --pristine -b nrf9160dk_nrf9160_ns --  -DEXTRA_CONF_FILE="overlay-adv-firmware.conf;overlay-fota_helper.conf;overlay-avsystem-bootstrap.conf;overlay-lwm2m-1.1.conf;overlay-mcumgr_client.conf; overlay-mcumgr_reset.conf" -DEXTRA_DTC_OVERLAY_FILE="nrf9160dk_mcumgr_client_uart2.overlay;nrf9160dk_recovery.overlay"
+            west build  --pristine -b nrf9160dk/nrf9160/ns --  -DEXTRA_CONF_FILE="overlay-adv-firmware.conf;overlay-fota_helper.conf;overlay-avsystem-bootstrap.conf;overlay-lwm2m-1.1.conf;overlay-mcumgr_client.conf; overlay-mcumgr_reset.conf" -DEXTRA_DTC_OVERLAY_FILE="nrf9160dk_mcumgr_client_uart2.overlay;nrf9160dk_recovery.overlay"
 
       .. group-tab:: MCUboot recovery mode without bootstrap
 
@@ -666,7 +666,7 @@ Use one of the following build commands to evaluate external FOTA:
 
          .. code-block:: console
 
-            west build  --pristine -b nrf9160dk_nrf9160_ns --  -DEXTRA_CONF_FILE="overlay-adv-firmware.conf;overlay-fota_helper.conf;overlay-avsystem.conf;overlay-lwm2m-1.1.conf;overlay-mcumgr_client.conf; overlay-mcumgr_reset.conf" -DEXTRA_DTC_OVERLAY_FILE="nrf9160dk_mcumgr_client_uart2.overlay;nrf9160dk_recovery.overlay"
+            west build  --pristine -b nrf9160dk/nrf9160/ns --  -DEXTRA_CONF_FILE="overlay-adv-firmware.conf;overlay-fota_helper.conf;overlay-avsystem.conf;overlay-lwm2m-1.1.conf;overlay-mcumgr_client.conf; overlay-mcumgr_reset.conf" -DEXTRA_DTC_OVERLAY_FILE="nrf9160dk_mcumgr_client_uart2.overlay;nrf9160dk_recovery.overlay"
 
       .. group-tab:: MCUmgr client with bootstrap
 
@@ -674,7 +674,7 @@ Use one of the following build commands to evaluate external FOTA:
 
          .. code-block:: console
 
-            west build  --pristine -b nrf9160dk_nrf9160_ns --  -DEXTRA_CONF_FILE="overlay-adv-firmware.conf;overlay-fota_helper.conf;overlay-avsystem-bootstrap.conf;overlay-lwm2m-1.1.conf;overlay-mcumgr_client.conf" -DEXTRA_DTC_OVERLAY_FILE="nrf9160dk_mcumgr_client_uart2.overlay"
+            west build  --pristine -b nrf9160dk/nrf9160/ns --  -DEXTRA_CONF_FILE="overlay-adv-firmware.conf;overlay-fota_helper.conf;overlay-avsystem-bootstrap.conf;overlay-lwm2m-1.1.conf;overlay-mcumgr_client.conf" -DEXTRA_DTC_OVERLAY_FILE="nrf9160dk_mcumgr_client_uart2.overlay"
 
       .. group-tab:: MCUmgr client without bootstrap
 
@@ -682,7 +682,7 @@ Use one of the following build commands to evaluate external FOTA:
 
          .. code-block:: console
 
-            west build  --pristine -b nrf9160dk_nrf9160_ns --  -DEXTRA_CONF_FILE="overlay-adv-firmware.conf;overlay-fota_helper.conf;overlay-avsystem.conf;overlay-lwm2m-1.1.conf;overlay-mcumgr_client.conf" -DEXTRA_DTC_OVERLAY_FILE="nrf9160dk_mcumgr_client_uart2.overlay"
+            west build  --pristine -b nrf9160dk/nrf9160/ns --  -DEXTRA_CONF_FILE="overlay-adv-firmware.conf;overlay-fota_helper.conf;overlay-avsystem.conf;overlay-lwm2m-1.1.conf;overlay-mcumgr_client.conf" -DEXTRA_DTC_OVERLAY_FILE="nrf9160dk_mcumgr_client_uart2.overlay"
 
 
 See :ref:`lwm2m_client_fota_external_mcu` for details.

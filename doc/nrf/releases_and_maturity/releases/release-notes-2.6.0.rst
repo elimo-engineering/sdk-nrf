@@ -188,8 +188,8 @@ Working with nRF91 Series
 
   * New partition layout configuration options for Thingy:91.
     See :ref:`thingy91_partition_layout` for more details.
-  * :ref:`ug_nrf9161` user guide.
-  * A section on :ref:`tfm_enable_share_uart` in :ref:`ug_nrf9160`.
+  * Developing with nRF9161 DK user guide.
+  * A section on :ref:`tfm_enable_share_uart` in the developing with nRF9161 DK user guide.
 
 * Updated:
 
@@ -221,7 +221,7 @@ Working with nRF53 Series
 Working with RF front-end modules
 =================================
 
-* Added a clarification that the Simple GPIO implementation is intended for multiple front-end modules (not just one specific device) in the :ref:`ug_radio_fem_sw_support_mpsl` section of the :ref:`ug_radio_fem` guide.
+* Added a clarification that the Simple GPIO implementation is intended for multiple front-end modules (not just one specific device) in the :ref:`ug_radio_fem_sw_support` section of the :ref:`ug_radio_fem` guide.
 
 Protocols
 =========
@@ -515,8 +515,8 @@ nRF5340 Audio applications
 
 * Updated:
 
-  * :ref:`lib_bt_ll_acs_nrf53_readme` from v3424 to v18929.
-  * The default controller has been changed from the :ref:`lib_bt_ll_acs_nrf53_readme` to the :ref:`ug_ble_controller_softdevice`.
+  * LE Audio controller for nRF5340 from v3424 to v18929.
+  * The default controller has been changed from the LE Audio controller for nRF5340 library to the :ref:`ug_ble_controller_softdevice`.
     See the :ref:`nRF5340 Audio applications <nrf5340_audio_migration_notes>` section in the :ref:`migration_2.6` for information about how this affects your application.
   * Sending of the ISO data, which is now done in a single file :file:`bt_le_audio_tx`.
   * Application structure, which is now split into four separate, generic applications with separate :file:`main.c` files.
