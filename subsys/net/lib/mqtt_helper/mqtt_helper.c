@@ -153,11 +153,11 @@ static int certificates_provision(void)
 		return 0;
 	}
 
-	if (sizeof(ca_certificate) > 1) {
+	if (ca_certificate_len > 1) {
 		err = tls_credential_add(CONFIG_MQTT_HELPER_SEC_TAG,
 					 TLS_CREDENTIAL_CA_CERTIFICATE,
 					 ca_certificate,
-					 sizeof(ca_certificate));
+					 ca_certificate_len);
 		if (err == -EEXIST) {
 			LOG_DBG("CA certificate already exists, sec tag: %d",
 				CONFIG_MQTT_HELPER_SEC_TAG);
@@ -167,11 +167,11 @@ static int certificates_provision(void)
 		}
 	}
 
-	if (sizeof(private_key) > 1) {
+	if (private_key_len > 1) {
 		err = tls_credential_add(CONFIG_MQTT_HELPER_SEC_TAG,
 					 TLS_CREDENTIAL_PRIVATE_KEY,
 					 private_key,
-					 sizeof(private_key));
+					 private_key_len);
 		if (err == -EEXIST) {
 			LOG_DBG("Private key already exists, sec tag: %d",
 				CONFIG_MQTT_HELPER_SEC_TAG);
@@ -181,11 +181,11 @@ static int certificates_provision(void)
 		}
 	}
 
-	if (sizeof(device_certificate) > 1) {
+	if (device_certificate_len > 1) {
 		err = tls_credential_add(CONFIG_MQTT_HELPER_SEC_TAG,
 					 TLS_CREDENTIAL_SERVER_CERTIFICATE,
 					 device_certificate,
-					 sizeof(device_certificate));
+					 device_certificate_len);
 		if (err == -EEXIST) {
 			LOG_DBG("Public certificate already exists, sec tag: %d",
 				CONFIG_MQTT_HELPER_SEC_TAG);
@@ -410,6 +410,7 @@ static int broker_init(struct sockaddr_storage *broker,
 	addr = result;
 
 	while (addr != NULL) {
+#if defined(CONFIG_NET_IPV6)
 		if (addr->ai_family == AF_INET6) {
 			struct sockaddr_in6 *broker6 = ((struct sockaddr_in6 *)broker);
 
@@ -423,7 +424,9 @@ static int broker_init(struct sockaddr_storage *broker,
 			LOG_DBG("IPv6 Address found %s (%s)", addr_str,
 				net_family2str(addr->ai_family));
 			break;
-		} else if (addr->ai_family == AF_INET) {
+		} else 
+#endif 
+		if (addr->ai_family == AF_INET) {
 			struct sockaddr_in *broker4 = ((struct sockaddr_in *)broker);
 
 			net_ipaddr_copy(&broker4->sin_addr,

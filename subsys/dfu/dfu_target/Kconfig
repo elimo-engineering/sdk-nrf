@@ -39,6 +39,11 @@ config DFU_TARGET_SMP_IMAGE_LIST_SIZE
 
 endif
 
+config DFU_TARGET_CERTS
+	bool "DFU AWS certificates and key binary blob"
+	help
+	  Enable support for Update AWS credentials as a certificates and key binary blob.
+
 config DFU_TARGET_STREAM
 	bool "Generic DFU stream target"
 	depends on STREAM_FLASH_ERASE
