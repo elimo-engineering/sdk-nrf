@@ -120,6 +120,7 @@ int dfu_target_init(int img_type, int img_num, size_t file_size, dfu_target_call
 #ifdef CONFIG_DFU_TARGET_CERTS
 	if (img_type == DFU_TARGET_IMAGE_TYPE_CERTS) {
 		new_target = &dfu_target_certs;
+	}
 #endif
 #ifdef CONFIG_DFU_TARGET_SUIT
 	if (img_type == DFU_TARGET_IMAGE_TYPE_SUIT) {
